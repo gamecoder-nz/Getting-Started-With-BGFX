@@ -30,13 +30,14 @@ Each episode introduces new concepts and builds upon the last:
 | 5 | Creating a vertex buffer |
 | 6 | Creating a shader |
 | 7 | Using textures |
-| 8 | Creating a frame buffer |
-| 9 | Creating a depth stencil buffer |
-| 10 | Creating a rotating 3D pyramid |
-| 11 | ImGui |
-| 12 | Read a color |
-| 13 | Creating a font texture |
-| 14 | Rendering text |
+| 8 | Creating a renderer |
+| 9 | Creating a frame buffer |
+| 10 | Creating a depth stencil buffer |
+| 11 | Creating a rotating 3D pyramid |
+| 12 | ImGui |
+| 13 | Read a color |
+| 14 | Creating a font texture |
+| 15 | Rendering text |
 
 ---
 
