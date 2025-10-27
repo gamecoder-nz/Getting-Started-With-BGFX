@@ -36,7 +36,7 @@ Each episode introduces new concepts and builds upon the last:
 | 11 | Creating a rotating 3D pyramid |
 | 12 | ImGui |
 | 13 | Read a color |
-| 14 | Creating a font texture |
+| 14 | Creating a font atlas texture |
 | 15 | Rendering text |
 
 ---
