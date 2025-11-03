@@ -11,7 +11,8 @@ This repository contains the source code and examples featured in the video seri
 
 **Watch the series on YouTube:**  
 ➡️ Episode 1 – Introduction([https://www.youtube.com/watch?v=xZaIKEdRMOM](https://www.youtube.com/watch?v=xZaIKEdRMOM))  
-➡️ Episode 2 – Project Setup([https://www.youtube.com/watch?v=xZaIKEdRMOM](https://www.youtube.com/watch?v=xZaIKEdRMOM))
+➡️ Episode 2 – Project Setup([https://www.youtube.com/watch?v=xZaIKEdRMOM](https://www.youtube.com/watch?v=xZaIKEdRMOM))  
+➡️ Episode 3 – Intizalize BGFX([https://www.youtube.com/watch?v=C27k4yLCVOg](https://www.youtube.com/watch?v=C27k4yLCVOg))
 
 ---
 
@@ -29,13 +30,14 @@ Each episode introduces new concepts and builds upon the last:
 | 5 | Creating a vertex buffer |
 | 6 | Creating a shader |
 | 7 | Using textures |
-| 8 | Creating a frame buffer |
-| 9 | Creating a depth stencil buffer |
-| 10 | Creating a rotating 3D pyramid |
-| 11 | ImGui |
-| 12 | Read a color |
-| 13 | Creating a font texture |
-| 14 | Rendering text |
+| 8 | Creating a renderer |
+| 9 | Creating a frame buffer |
+| 10 | Creating a depth stencil buffer |
+| 11 | Creating a rotating 3D pyramid |
+| 12 | ImGui |
+| 13 | Read a color |
+| 14 | Creating a font atlas texture |
+| 15 | Rendering text |
 
 ---
 
