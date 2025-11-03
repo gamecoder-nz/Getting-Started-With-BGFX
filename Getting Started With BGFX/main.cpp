@@ -27,6 +27,15 @@ int main()
 		return 1;
 	}
 
+	uint16_t indices[6] = { 3, 2, 0, 2, 1, 0 };
+	bgfx::IndexBufferHandle indexBuffer = bgfx::createIndexBuffer(bgfx::makeRef(indices, 12));
+
+	if (bgfx::isValid(indexBuffer) == false)
+	{
+		std::println("Could not create index buffer");
+		return 1;
+	}
+
 	bool running = true;
 	SDL_Event event;
 
@@ -50,6 +59,7 @@ int main()
 		bgfx::frame();
 	}
 
+	bgfx::destroy(indexBuffer);
 	bgfx::shutdown();
 	SDL_DestroyWindow(window);
 	return 0;
