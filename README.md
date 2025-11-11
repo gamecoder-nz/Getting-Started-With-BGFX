@@ -12,7 +12,8 @@ This repository contains the source code and examples featured in the video seri
 **Watch the series on YouTube:**  
 ➡️ Episode 1 – Introduction([https://www.youtube.com/watch?v=xZaIKEdRMOM](https://www.youtube.com/watch?v=xZaIKEdRMOM))  
 ➡️ Episode 2 – Project Setup([https://www.youtube.com/watch?v=xZaIKEdRMOM](https://www.youtube.com/watch?v=xZaIKEdRMOM))  
-➡️ Episode 3 – Intizalize BGFX([https://www.youtube.com/watch?v=C27k4yLCVOg](https://www.youtube.com/watch?v=C27k4yLCVOg))
+➡️ Episode 3 – Intizalize BGFX([https://www.youtube.com/watch?v=C27k4yLCVOg](https://www.youtube.com/watch?v=C27k4yLCVOg))  
+➡️ Episode 4 – Create an index buffer([https://www.youtube.com/watch?v=VjZgZVZejcM](https://www.youtube.com/watch?v=VjZgZVZejcM))
 
 ---
 
