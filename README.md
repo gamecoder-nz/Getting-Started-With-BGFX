@@ -15,6 +15,7 @@ This repository contains the source code and examples featured in the video seri
 ➡️ Episode 3 – Intizalize BGFX([https://www.youtube.com/watch?v=C27k4yLCVOg](https://www.youtube.com/watch?v=C27k4yLCVOg))  
 ➡️ Episode 4 – Create an index buffer([https://www.youtube.com/watch?v=VjZgZVZejcM](https://www.youtube.com/watch?v=VjZgZVZejcM))  
 ➡️ Episode 5 – Create a vertex buffer([https://www.youtube.com/watch?v=pj-_aSsDYLs](https://www.youtube.com/watch?v=pj-_aSsDYLs))
+➡️ Episode 6 – Create a shader([https://www.youtube.com/watch?v=ZTchCk3E5iM](https://www.youtube.com/watch?v=ZTchCk3E5iM))
 
 ---
 
