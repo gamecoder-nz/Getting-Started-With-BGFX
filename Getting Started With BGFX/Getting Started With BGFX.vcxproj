@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="image.cpp" />
     <ClCompile Include="imgui\backends\imgui_impl_bgfx.cpp" />
     <ClCompile Include="imgui\backends\imgui_impl_sdl3.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="image.h" />
     <ClInclude Include="shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

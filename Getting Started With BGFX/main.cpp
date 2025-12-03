@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 
 #include "shader.h"
+#include "image.h"
 
 struct Vertex
 {
@@ -54,10 +55,10 @@ int main()
 		.end();
 
 	Vertex vertices[4];
-	vertices[0] = { {-0.5f, 0.5f, 0.0f}, 0xff0000ff, {0.0, 0.0} };
-	vertices[1] = { {0.5f, 0.5f, 0.0f}, 0xff00ff00, {1.0f, 0.0f} };
-	vertices[2] = { {0.5f, -0.5f, 0.0f}, 0xffff0000, {1.0f, 1.0f} };
-	vertices[3] = { {-0.5f, -0.5f, 0.0f}, 0xff000000, {0.0f, 1.0f} };
+	vertices[0] = { {-0.28f, 0.5f, 0.0f}, 0xffff00ff, {0.0, 0.0} };
+	vertices[1] = { {0.28f, 0.5f, 0.0f}, 0xffff00ff, {1.0f, 0.0f} };
+	vertices[2] = { {0.28f, -0.5f, 0.0f}, 0xffff00ff, {1.0f, 1.0f} };
+	vertices[3] = { {-0.28f, -0.5f, 0.0f}, 0xffff00ff, {0.0f, 1.0f} };
 
 	bgfx::VertexBufferHandle vertexBuffer = bgfx::createVertexBuffer(bgfx::makeRef(vertices, sizeof(Vertex) * 4), vertexLayout);
 
@@ -68,6 +69,10 @@ int main()
 	}
 
 	ShaderProgram* shaderProgram = new ShaderProgram("vertex.bin", "frag.bin");
+	Image* image = new Image("texture.jpg");
+	uint32_t white = 0xffffffff;
+	Image* whiteImage = new Image(&white, 1, 1);
+	bgfx::UniformHandle uniform = bgfx::createUniform("textureColor", bgfx::UniformType::Sampler);
 
 	bool running = true;
 	SDL_Event event;
@@ -84,10 +89,9 @@ int main()
 			}
 		}
 
-		bgfx::setViewTransform(0, nullptr, nullptr);
 		bgfx::setViewRect(0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 		bgfx::setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH | BGFX_CLEAR_STENCIL, 0x00FFFFFF);
-
+		bgfx::setTexture(0, uniform, whiteImage->GetTextureHandle());
 		bgfx::setVertexBuffer(0, vertexBuffer);
 		bgfx::setIndexBuffer(indexBuffer);
 		bgfx::submit(0, shaderProgram->GetProgramHandle());
@@ -98,6 +102,9 @@ int main()
 	bgfx::destroy(indexBuffer);
 	bgfx::destroy(vertexBuffer);
 	delete shaderProgram;
+	delete image;
+	delete whiteImage;
+	bgfx::destroy(uniform);
 	bgfx::shutdown();
 	SDL_DestroyWindow(window);
 	return 0;
