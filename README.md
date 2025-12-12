@@ -16,8 +16,8 @@ This repository contains the source code and examples featured in the video seri
 ➡️ Episode 4 – Create an index buffer([https://www.youtube.com/watch?v=VjZgZVZejcM](https://www.youtube.com/watch?v=VjZgZVZejcM))  
 ➡️ Episode 5 – Create a vertex buffer([https://www.youtube.com/watch?v=pj-_aSsDYLs](https://www.youtube.com/watch?v=pj-_aSsDYLs))  
 ➡️ Episode 6 – Create a shader([https://www.youtube.com/watch?v=ZTchCk3E5iM](https://www.youtube.com/watch?v=ZTchCk3E5iM))  
-➡️ Episode 7 – Load an image([https://www.youtube.com/watch?v=58cQXGtS0Aw](https://www.youtube.com/watch?v=58cQXGtS0Aw))
-
+➡️ Episode 7 – Load an image([https://www.youtube.com/watch?v=58cQXGtS0Aw](https://www.youtube.com/watch?v=58cQXGtS0Aw))  
+➡️ Episode 8 – Create a renderer([https://www.youtube.com/watch?v=VhUNh-hkEsE](https://www.youtube.com/watch?v=VhUNh-hkEsE))
 ---
 
 ## 🧩 What You'll Learn
