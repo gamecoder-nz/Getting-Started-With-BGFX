@@ -10,14 +10,16 @@ This project accompanies a video tutorial series where I explore **BGFX**, a cro
 This repository contains the source code and examples featured in the video series.
 
 **Watch the series on YouTube:**  
-➡️ Episode 1 – Introduction([https://www.youtube.com/watch?v=xZaIKEdRMOM](https://www.youtube.com/watch?v=xZaIKEdRMOM))  
-➡️ Episode 2 – Project Setup([https://www.youtube.com/watch?v=xZaIKEdRMOM](https://www.youtube.com/watch?v=xZaIKEdRMOM))  
-➡️ Episode 3 – Intizalize BGFX([https://www.youtube.com/watch?v=C27k4yLCVOg](https://www.youtube.com/watch?v=C27k4yLCVOg))  
-➡️ Episode 4 – Create an index buffer([https://www.youtube.com/watch?v=VjZgZVZejcM](https://www.youtube.com/watch?v=VjZgZVZejcM))  
-➡️ Episode 5 – Create a vertex buffer([https://www.youtube.com/watch?v=pj-_aSsDYLs](https://www.youtube.com/watch?v=pj-_aSsDYLs))  
-➡️ Episode 6 – Create a shader([https://www.youtube.com/watch?v=ZTchCk3E5iM](https://www.youtube.com/watch?v=ZTchCk3E5iM))  
-➡️ Episode 7 – Load an image([https://www.youtube.com/watch?v=58cQXGtS0Aw](https://www.youtube.com/watch?v=58cQXGtS0Aw))  
-➡️ Episode 8 – Create a renderer([https://www.youtube.com/watch?v=VhUNh-hkEsE](https://www.youtube.com/watch?v=VhUNh-hkEsE))
+➡️ Episode 1 – Introduction ([https://www.youtube.com/watch?v=xZaIKEdRMOM](https://www.youtube.com/watch?v=xZaIKEdRMOM))  
+➡️ Episode 2 – Project Setup ([https://www.youtube.com/watch?v=xZaIKEdRMOM](https://www.youtube.com/watch?v=xZaIKEdRMOM))  
+➡️ Episode 3 – Intizalize BGFX ([https://www.youtube.com/watch?v=C27k4yLCVOg](https://www.youtube.com/watch?v=C27k4yLCVOg))  
+➡️ Episode 4 – Create an index buffer ([https://www.youtube.com/watch?v=VjZgZVZejcM](https://www.youtube.com/watch?v=VjZgZVZejcM))  
+➡️ Episode 5 – Create a vertex buffer ([https://www.youtube.com/watch?v=pj-_aSsDYLs](https://www.youtube.com/watch?v=pj-_aSsDYLs))  
+➡️ Episode 6 – Create a shader ([https://www.youtube.com/watch?v=ZTchCk3E5iM](https://www.youtube.com/watch?v=ZTchCk3E5iM))  
+➡️ Episode 7 – Load an image ([https://www.youtube.com/watch?v=58cQXGtS0Aw](https://www.youtube.com/watch?v=58cQXGtS0Aw))  
+➡️ Episode 8 – Create a renderer( [https://www.youtube.com/watch?v=VhUNh-hkEsE](https://www.youtube.com/watch?v=VhUNh-hkEsE))  
+➡️ Episode 9 – Create a frame buffer ([https://www.youtube.com/watch?v=hsNp4Qk_Jx8](https://www.youtube.com/watch?v=hsNp4Qk_Jx8))
+
 ---
 
 ## 🧩 What You'll Learn
