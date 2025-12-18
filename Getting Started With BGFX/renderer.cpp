@@ -69,6 +69,14 @@ void Renderer::Initialize(SDL_Window* window)
 
 	m_View = glm::lookAt(m_Camera, m_At, { 0.0f, 1.0f, 0.0f });
 	m_Projection = glm::ortho(-SCREEN_WIDTH / 2.0f, SCREEN_WIDTH / 2.0f, -SCREEN_HEIGHT / 2.0f, SCREEN_HEIGHT / 2.0f, -1000.0f, 1000.0f);
+
+	m_FrameBuffer = new FrameBuffer(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	m_NDCVertices.push_back({ {-1.0f, 1.0f, 0.0f}, 0xff0000ff, {0.0f, 0.0f} });
+	m_NDCVertices.push_back({ {1.0f, 1.0f, 0.0f}, 0xff0000ff, {1.0f, 0.0f} });
+	m_NDCVertices.push_back({ {1.0f, -1.0f, 0.0f}, 0xff0000ff, {1.0f, 1.0f} });
+	m_NDCVertices.push_back({ {-1.0f, -1.0f, 0.0f}, 0xff0000ff, {0.0f, 1.0f} });
+	m_NDCVertexBuffer = bgfx::createVertexBuffer(bgfx::makeRef(m_NDCVertices.data(), sizeof(Vertex) * m_NDCVertices.size()), m_VertexLayout);
 }
 
 void Renderer::Begin()
@@ -81,6 +89,10 @@ void Renderer::Begin()
 	bgfx::setViewRect(0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	bgfx::setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH | BGFX_CLEAR_STENCIL, 0x00FFFFFF);
 	bgfx::setViewTransform(0, glm::value_ptr(m_View), glm::value_ptr(m_Projection));
+	bgfx::setViewFrameBuffer(0, m_FrameBuffer->GetFrameBufferHandle());
+
+	bgfx::setViewRect(1, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	bgfx::setViewClear(1, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH | BGFX_CLEAR_STENCIL, 0xFFFFFFFF);
 
 	bgfx::touch(0);
 }
@@ -113,10 +125,10 @@ void Renderer::DrawImage(Image* image, glm::vec3 position, float rotation, uint3
 
 	m_RenderBatches.push_back(batch);
 
-	m_Vertices.push_back({ {-50.0f, 50.0f, 0.0f}, color, {0.0, 1.0f} });
-	m_Vertices.push_back({ {50.0f, 50.0f, 0.0f}, color, {1.0, 1.0f} });
-	m_Vertices.push_back({ {50.0f, -50.0f, 0.0f}, color, {1.0, 0.0f} });
-	m_Vertices.push_back({ {-50.0f, -50.0f, 0.0f}, color, {0.0, 0.0f} });
+	m_Vertices.push_back({ {-50.0f, 50.0f, 0.0f}, color, {1.0, 1.0f} });
+	m_Vertices.push_back({ {50.0f, 50.0f, 0.0f}, color, {0.0, 1.0f} });
+	m_Vertices.push_back({ {50.0f, -50.0f, 0.0f}, color, {0.0, 0.0f} });
+	m_Vertices.push_back({ {-50.0f, -50.0f, 0.0f}, color, {1.0, 0.0f} });
 }
 
 void Renderer::Render()
@@ -134,6 +146,11 @@ void Renderer::Render()
 		bgfx::setTexture(0, m_Uniform, batch.Texture);
 		bgfx::submit(0, m_ShaderProgram->GetProgramHandle());
 	}
+
+	bgfx::setVertexBuffer(0, m_NDCVertexBuffer);
+	bgfx::setIndexBuffer(m_IndexBuffer, 0, 6);
+	bgfx::setTexture(0, m_Uniform, m_FrameBuffer->GetColorAttachmentHandle());
+	bgfx::submit(1, m_ShaderProgram->GetProgramHandle());
 
 	bgfx::frame();
 }

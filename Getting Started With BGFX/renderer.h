@@ -8,6 +8,7 @@
 #include <vector>
 #include "shader.h"
 #include "image.h"
+#include "frame_buffer.h"
 
 struct Vertex
 {
@@ -48,6 +49,10 @@ private:
 	ShaderProgram* m_ShaderProgram;
 	std::vector<Vertex> m_Vertices;
 	std::vector<RenderBatch> m_RenderBatches;
+	FrameBuffer* m_FrameBuffer;
+
+	bgfx::VertexBufferHandle m_NDCVertexBuffer;
+	std::vector<Vertex> m_NDCVertices;
 
 	glm::vec3 m_At;
 	glm::vec3 m_Camera;

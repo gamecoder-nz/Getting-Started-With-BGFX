@@ -146,8 +146,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="frame_buffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="frame_buffer.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="shader.h" />
