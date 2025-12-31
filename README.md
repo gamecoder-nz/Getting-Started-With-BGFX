@@ -18,7 +18,8 @@ This repository contains the source code and examples featured in the video seri
 ➡️ Episode 6 – Create a shader ([https://www.youtube.com/watch?v=ZTchCk3E5iM](https://www.youtube.com/watch?v=ZTchCk3E5iM))  
 ➡️ Episode 7 – Load an image ([https://www.youtube.com/watch?v=58cQXGtS0Aw](https://www.youtube.com/watch?v=58cQXGtS0Aw))  
 ➡️ Episode 8 – Create a renderer( [https://www.youtube.com/watch?v=VhUNh-hkEsE](https://www.youtube.com/watch?v=VhUNh-hkEsE))  
-➡️ Episode 9 – Create a frame buffer ([https://www.youtube.com/watch?v=hsNp4Qk_Jx8](https://www.youtube.com/watch?v=hsNp4Qk_Jx8))
+➡️ Episode 9 – Create a frame buffer ([https://www.youtube.com/watch?v=hsNp4Qk_Jx8](https://www.youtube.com/watch?v=hsNp4Qk_Jx8))  
+➡️ Episode 10 – Depth testing, alpha blender, stencil testing ([https://www.youtube.com/watch?v=PVJta1Sa4P0](https://www.youtube.com/watch?v=PVJta1Sa4P0))
 
 ---
 
