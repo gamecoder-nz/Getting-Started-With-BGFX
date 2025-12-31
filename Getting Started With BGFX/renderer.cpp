@@ -72,10 +72,10 @@ void Renderer::Initialize(SDL_Window* window)
 
 	m_FrameBuffer = new FrameBuffer(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	m_NDCVertices.push_back({ {-1.0f, 1.0f, 0.0f}, 0xff0000ff, {0.0f, 0.0f} });
-	m_NDCVertices.push_back({ {1.0f, 1.0f, 0.0f}, 0xff0000ff, {1.0f, 0.0f} });
-	m_NDCVertices.push_back({ {1.0f, -1.0f, 0.0f}, 0xff0000ff, {1.0f, 1.0f} });
-	m_NDCVertices.push_back({ {-1.0f, -1.0f, 0.0f}, 0xff0000ff, {0.0f, 1.0f} });
+	m_NDCVertices.push_back({ {-1.0f, 1.0f, 0.0f}, 0xffffffff, {0.0f, 0.0f} });
+	m_NDCVertices.push_back({ {1.0f, 1.0f, 0.0f}, 0xffffffff, {1.0f, 0.0f} });
+	m_NDCVertices.push_back({ {1.0f, -1.0f, 0.0f}, 0xffffffff, {1.0f, 1.0f} });
+	m_NDCVertices.push_back({ {-1.0f, -1.0f, 0.0f}, 0xffffffff, {0.0f, 1.0f} });
 	m_NDCVertexBuffer = bgfx::createVertexBuffer(bgfx::makeRef(m_NDCVertices.data(), sizeof(Vertex) * m_NDCVertices.size()), m_VertexLayout);
 }
 
@@ -98,9 +98,11 @@ void Renderer::Begin()
 }
 
 
-void Renderer::DrawQuad(glm::vec3 position, float rotation, uint32_t color, glm::vec3 scale)
+void Renderer::DrawQuad(glm::vec3 position, float rotation, uint32_t color, glm::vec3 scale, uint32_t depth)
 {
 	RenderBatch batch;
+	batch.Stencil = m_Stencil;
+	batch.Depth = depth;
 	batch.StartIndex = m_Vertices.size() / 4 * 6;
 	batch.NumberOfIndices = 6;
 	batch.Texture = m_WhiteImage->GetTextureHandle();
@@ -115,9 +117,11 @@ void Renderer::DrawQuad(glm::vec3 position, float rotation, uint32_t color, glm:
 }
 
 
-void Renderer::DrawImage(Image* image, glm::vec3 position, float rotation, uint32_t color)
+void Renderer::DrawImage(Image* image, glm::vec3 position, float rotation, uint32_t color, uint32_t depth)
 {
 	RenderBatch batch;
+	batch.Stencil = m_Stencil;
+	batch.Depth = depth;
 	batch.StartIndex = m_Vertices.size() / 4 * 6;
 	batch.NumberOfIndices = 6;
 	batch.Texture = image->GetTextureHandle();
@@ -131,6 +135,21 @@ void Renderer::DrawImage(Image* image, glm::vec3 position, float rotation, uint3
 	m_Vertices.push_back({ {-50.0f, -50.0f, 0.0f}, color, {1.0, 0.0f} });
 }
 
+void Renderer::WriteToStencil()
+{
+	m_Stencil = BGFX_STENCIL_OP_FAIL_S_KEEP | BGFX_STENCIL_OP_FAIL_Z_KEEP | BGFX_STENCIL_OP_PASS_Z_REPLACE | BGFX_STENCIL_TEST_ALWAYS | BGFX_STENCIL_FUNC_REF(1) | BGFX_STENCIL_FUNC_RMASK(0xff);
+}
+
+void Renderer::EnableStencilTest()
+{
+	m_Stencil = BGFX_STENCIL_OP_FAIL_S_KEEP | BGFX_STENCIL_OP_FAIL_Z_KEEP | BGFX_STENCIL_OP_PASS_Z_REPLACE | BGFX_STENCIL_TEST_NOTEQUAL | BGFX_STENCIL_FUNC_REF(1) | BGFX_STENCIL_FUNC_RMASK(0xff);
+}
+
+void Renderer::DisableStencil()
+{
+	m_Stencil = BGFX_STENCIL_NONE;
+}
+
 void Renderer::Render()
 {
 	if (m_Vertices.size() > 0)
@@ -140,11 +159,13 @@ void Renderer::Render()
 
 	for (RenderBatch& batch : m_RenderBatches)
 	{
+		bgfx::setState(BGFX_STATE_WRITE_RGB | BGFX_STATE_BLEND_ALPHA | BGFX_STATE_WRITE_Z);
+		bgfx::setStencil(batch.Stencil);
 		bgfx::setTransform(glm::value_ptr(batch.Transform));
 		bgfx::setVertexBuffer(0, m_VertexBuffer);
 		bgfx::setIndexBuffer(m_IndexBuffer, batch.StartIndex, batch.NumberOfIndices);
 		bgfx::setTexture(0, m_Uniform, batch.Texture);
-		bgfx::submit(0, m_ShaderProgram->GetProgramHandle());
+		bgfx::submit(0, m_ShaderProgram->GetProgramHandle(), batch.Depth);
 	}
 
 	bgfx::setVertexBuffer(0, m_NDCVertexBuffer);

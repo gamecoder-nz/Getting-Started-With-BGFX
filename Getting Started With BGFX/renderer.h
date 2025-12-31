@@ -26,7 +26,8 @@ struct RenderBatch
 	bgfx::TextureHandle Texture;
 	uint32_t StartIndex;
 	uint32_t NumberOfIndices;
-
+	uint32_t Depth;
+	uint32_t Stencil;
 };
 
 class Renderer
@@ -35,8 +36,11 @@ public:
 	Renderer();
 	void Initialize(SDL_Window* window);
 	void Begin();
-	void DrawQuad(glm::vec3 position, float rotation, uint32_t color, glm::vec3 scale);
-	void DrawImage(Image* image, glm::vec3 position, float rotation, uint32_t color);
+	void DrawQuad(glm::vec3 position, float rotation, uint32_t color, glm::vec3 scale, uint32_t depth);
+	void DrawImage(Image* image, glm::vec3 position, float rotation, uint32_t color, uint32_t depth);
+	void WriteToStencil();
+	void EnableStencilTest();
+	void DisableStencil();
 	void Render();
 	void Shutdown();
 
@@ -53,6 +57,7 @@ private:
 
 	bgfx::VertexBufferHandle m_NDCVertexBuffer;
 	std::vector<Vertex> m_NDCVertices;
+	uint32_t m_Stencil;
 
 	glm::vec3 m_At;
 	glm::vec3 m_Camera;
