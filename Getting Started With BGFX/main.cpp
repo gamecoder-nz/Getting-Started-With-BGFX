@@ -1,5 +1,7 @@
 #include "renderer.h"
-
+#include <imgui.h>
+#include <backends/imgui_impl_sdl3.h>
+#include <glm/gtc/type_ptr.hpp>
 
 int main()
 {
@@ -10,6 +12,8 @@ int main()
 	}
 
 	SDL_Window* window = SDL_CreateWindow("Getting Started With BGFX", SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+	ImGui::CreateContext();
+	ImGui_ImplSDL3_InitForOther(window);
 
 	Renderer renderer;
 	renderer.Initialize(window);
@@ -18,11 +22,15 @@ int main()
 	bool running = true;
 	SDL_Event event;
 	float rotation = 0.0f;
+	glm::vec4 postProcessingColor(1.0f);
 
 	while (running == true)
 	{
+		ImGui_ImplSDL3_NewFrame();
+
 		while (SDL_PollEvent(&event))
 		{
+			ImGui_ImplSDL3_ProcessEvent(&event);
 			switch (event.type)
 			{
 			case SDL_EVENT_QUIT:
@@ -42,6 +50,23 @@ int main()
 		renderer.EnableStencilTest();
 		renderer.DrawQuad({ 500.0f, 0.0f, 0.0f }, 0.0f, 0xff00ffff, { 1.3f, 1.3f, 1.0 }, 0);
 		renderer.DisableStencil();
+
+		ImGui::NewFrame();
+		ImGui::Begin("Window");
+
+		if (ImGui::ColorPicker4("Post Processing Color", glm::value_ptr(postProcessingColor)) == true)
+		{
+			uint32_t newPostProcessingColor =
+				((uint32_t)(postProcessingColor.a * 255.0f) << 24)
+				| ((uint32_t)(postProcessingColor.b * 255.0f) << 16)
+				| ((uint32_t)(postProcessingColor.g * 255.0f) << 8)
+				| ((uint32_t)(postProcessingColor.r * 255.0f));
+
+			renderer.SetPostProcessingColor(newPostProcessingColor);
+		}
+
+		ImGui::End();
+
 		renderer.Render();
 		rotation += 1.0f;
 		rotation = std::fmod(rotation, 360.0f);

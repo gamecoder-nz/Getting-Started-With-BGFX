@@ -20,6 +20,11 @@ struct Vertex
 #define SCREEN_WIDTH 1600
 #define SCREEN_HEIGHT 900
 
+#define THREE_D_VIEW 0
+#define TWO_D_VIEW 1
+#define RENDER_VIEW 2
+#define IMGUI_VIEW 255
+
 struct RenderBatch
 {
 	glm::mat4 Transform;
@@ -41,6 +46,7 @@ public:
 	void WriteToStencil();
 	void EnableStencilTest();
 	void DisableStencil();
+	void SetPostProcessingColor(uint32_t color);
 	void Render();
 	void Shutdown();
 
@@ -55,7 +61,7 @@ private:
 	std::vector<RenderBatch> m_RenderBatches;
 	FrameBuffer* m_FrameBuffer;
 
-	bgfx::VertexBufferHandle m_NDCVertexBuffer;
+	bgfx::DynamicVertexBufferHandle m_NDCVertexBuffer;
 	std::vector<Vertex> m_NDCVertices;
 	uint32_t m_Stencil;
 
