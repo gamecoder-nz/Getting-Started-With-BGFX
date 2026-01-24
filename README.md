@@ -20,8 +20,8 @@ This repository contains the source code and examples featured in the video seri
 ➡️ Episode 8 – Create a renderer( [https://www.youtube.com/watch?v=VhUNh-hkEsE](https://www.youtube.com/watch?v=VhUNh-hkEsE))  
 ➡️ Episode 9 – Create a frame buffer ([https://www.youtube.com/watch?v=hsNp4Qk_Jx8](https://www.youtube.com/watch?v=hsNp4Qk_Jx8))  
 ➡️ Episode 10 – Depth testing, alpha blending, stencil testing ([https://www.youtube.com/watch?v=PVJta1Sa4P0](https://www.youtube.com/watch?v=PVJta1Sa4P0))  
-➡️ Episode 11 – ImGUI ([https://www.youtube.com/watch?v=jJg3q_D0VS4](https://www.youtube.com/watch?v=jJg3q_D0VS4))
-
+➡️ Episode 11 – ImGUI ([https://www.youtube.com/watch?v=jJg3q_D0VS4](https://www.youtube.com/watch?v=jJg3q_D0VS4))  
+➡️ Episode 12 – 3D ([https://www.youtube.com/watch?v=XK2DiUE0eqo](https://www.youtube.com/watch?v=XK2DiUE0eqo))
 ---
 
 ## 🧩 What You'll Learn
