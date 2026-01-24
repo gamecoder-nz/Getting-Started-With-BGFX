@@ -40,6 +40,7 @@ int main()
 		}
 
 		renderer.Begin();
+		renderer.DrawPyramid({ -100.0f, 50.0f, 200.0f }, rotation);
 		renderer.DrawQuad({ -550.0f, 0.0f, 0.1f }, 0.0f, 0x7700ffff, { 1.0f, 1.0f, 1.0f }, 0);
 		renderer.DrawQuad({ -500.0f, 0.0f, 0.2f }, 0.0f, 0xffff00ff, { 1.0f, 1.0f, 1.0f }, 1);
 

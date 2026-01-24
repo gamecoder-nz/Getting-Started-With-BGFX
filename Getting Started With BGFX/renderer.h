@@ -41,6 +41,7 @@ public:
 	Renderer();
 	void Initialize(SDL_Window* window);
 	void Begin();
+	void DrawPyramid(glm::vec3 position, float rotation);
 	void DrawQuad(glm::vec3 position, float rotation, uint32_t color, glm::vec3 scale, uint32_t depth);
 	void DrawImage(Image* image, glm::vec3 position, float rotation, uint32_t color, uint32_t depth);
 	void WriteToStencil();
@@ -52,8 +53,10 @@ public:
 
 private:
 	bgfx::IndexBufferHandle m_IndexBuffer;
+	bgfx::IndexBufferHandle m_PyramidIndexBuffer;
 	bgfx::VertexLayout m_VertexLayout;
 	bgfx::DynamicVertexBufferHandle m_VertexBuffer;
+	bgfx::VertexBufferHandle m_PyramidVertexBuffer;
 	bgfx::UniformHandle m_Uniform;
 	Image* m_WhiteImage;
 	ShaderProgram* m_ShaderProgram;
@@ -69,4 +72,5 @@ private:
 	glm::vec3 m_Camera;
 	glm::mat4 m_View;
 	glm::mat4 m_Projection;
+	glm::mat4 m_PerspectiveProjection;
 };
