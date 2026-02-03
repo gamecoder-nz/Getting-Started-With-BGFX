@@ -9,6 +9,7 @@
 #include "shader.h"
 #include "image.h"
 #include "frame_buffer.h"
+#include <optional>
 
 struct Vertex
 {
@@ -23,6 +24,7 @@ struct Vertex
 #define THREE_D_VIEW 0
 #define TWO_D_VIEW 1
 #define RENDER_VIEW 2
+#define BLIT_VIEW 3
 #define IMGUI_VIEW 255
 
 struct RenderBatch
@@ -48,6 +50,8 @@ public:
 	void EnableStencilTest();
 	void DisableStencil();
 	void SetPostProcessingColor(uint32_t color);
+	void ReadColor(uint32_t x, uint32_t y);
+	std::optional<uint32_t> GetReadColor();
 	void Render();
 	void Shutdown();
 
@@ -73,4 +77,10 @@ private:
 	glm::mat4 m_View;
 	glm::mat4 m_Projection;
 	glm::mat4 m_PerspectiveProjection;
+
+	bgfx::TextureHandle m_ReadValueDestination;
+
+	uint32_t m_Frame;
+	uint32_t m_ReadValueReadyFrame;
+	uint32_t m_ReadValue;
 };

@@ -36,6 +36,16 @@ int main()
 			case SDL_EVENT_QUIT:
 				running = false;
 				break;
+
+			case SDL_EVENT_MOUSE_BUTTON_UP:
+				if (event.button.button == SDL_BUTTON_LEFT)
+				{
+					if (event.button.x >= 0 && event.button.y >= 0 && event.button.x < SCREEN_WIDTH && event.button.y < SCREEN_HEIGHT)
+					{
+						renderer.ReadColor(event.button.x, event.button.y);
+					}
+				}
+				break;
 			}
 		}
 
@@ -71,6 +81,14 @@ int main()
 		renderer.Render();
 		rotation += 1.0f;
 		rotation = std::fmod(rotation, 360.0f);
+
+		std::optional<uint32_t> readColorOptional = renderer.GetReadColor();
+		if (readColorOptional.has_value() == true)
+		{
+			uint32_t readValue = readColorOptional.value();
+
+			std::println("R: {} G: {} B: {} A:{} ", (readValue & 0x000000ff), (readValue & 0x0000ff00) >> 8, (readValue & 0x00ff0000) >> 16, (readValue & 0xff000000) >> 24);
+		}
 	}
 
 	renderer.Shutdown();

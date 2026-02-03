@@ -110,6 +110,10 @@ void Renderer::Initialize(SDL_Window* window)
 	m_NDCVertexBuffer = bgfx::createDynamicVertexBuffer(bgfx::makeRef(m_NDCVertices.data(), sizeof(Vertex) * m_NDCVertices.size()), m_VertexLayout);
 
 	ImGui_ImplBgfx_Init(IMGUI_VIEW);
+
+	m_ReadValueDestination = bgfx::createTexture2D(1, 1, false, 0, bgfx::TextureFormat::RGBA8, BGFX_TEXTURE_BLIT_DST | BGFX_TEXTURE_READ_BACK);
+	m_Frame = 0;
+	m_ReadValueReadyFrame = 0xffffffff;
 }
 
 void Renderer::Begin()
@@ -214,6 +218,22 @@ void Renderer::SetPostProcessingColor(uint32_t color)
 	bgfx::update(m_NDCVertexBuffer, 0, bgfx::makeRef(m_NDCVertices.data(), m_NDCVertices.size() * sizeof(Vertex)));
 }
 
+void Renderer::ReadColor(uint32_t x, uint32_t y)
+{
+	bgfx::blit(BLIT_VIEW, m_ReadValueDestination, 0, 0, m_FrameBuffer->GetColorAttachmentHandle(), x, y, 1, 1);
+	m_ReadValueReadyFrame = bgfx::readTexture(m_ReadValueDestination, &m_ReadValue);
+}
+
+std::optional<uint32_t> Renderer::GetReadColor()
+{
+	if (m_Frame == m_ReadValueReadyFrame)
+	{
+		return m_ReadValue;
+	}
+
+	return std::nullopt;
+}
+
 void Renderer::Render()
 {
 	if (m_Vertices.size() > 0)
@@ -240,7 +260,7 @@ void Renderer::Render()
 	ImGui::Render();
 	ImGui_ImplBgfx_RenderDrawData(ImGui::GetDrawData());
 
-	bgfx::frame();
+	m_Frame = bgfx::frame();
 }
 
 void Renderer::Shutdown()
