@@ -22,7 +22,9 @@ This repository contains the source code and examples featured in the video seri
 ➡️ Episode 10 – Depth testing, alpha blending, stencil testing ([https://www.youtube.com/watch?v=PVJta1Sa4P0](https://www.youtube.com/watch?v=PVJta1Sa4P0))  
 ➡️ Episode 11 – ImGUI ([https://www.youtube.com/watch?v=jJg3q_D0VS4](https://www.youtube.com/watch?v=jJg3q_D0VS4))  
 ➡️ Episode 12 – 3D ([https://www.youtube.com/watch?v=XK2DiUE0eqo](https://www.youtube.com/watch?v=XK2DiUE0eqo))  
-➡️ Episode 13 – Read colors ([https://www.youtube.com/watch?v=cmVYUttABi0](https://www.youtube.com/watch?v=cmVYUttABi0))
+➡️ Episode 13 – Read colors ([https://www.youtube.com/watch?v=cmVYUttABi0](https://www.youtube.com/watch?v=cmVYUttABi0))  
+➡️ Episode 14 – Font atlas texture ([https://www.youtube.com/watch?v=0QSj6ajLIWw](https://www.youtube.com/watch?v=0QSj6ajLIWw))
+
 ---
 
 ## 🧩 What You'll Learn
