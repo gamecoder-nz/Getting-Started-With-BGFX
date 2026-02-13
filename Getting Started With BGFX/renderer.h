@@ -10,6 +10,19 @@
 #include "image.h"
 #include "frame_buffer.h"
 #include <optional>
+#include <unordered_map>
+
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
+struct GlyphMetrics
+{
+	glm::ivec2 Offset;
+	glm::ivec2 Dimensions;
+	int32_t AdvanceWidth = 0;
+	glm::vec2 TextureCoordinates0;
+	glm::vec2 TextureCoordinates1;
+};
 
 struct Vertex
 {
@@ -54,6 +67,7 @@ public:
 	std::optional<uint32_t> GetReadColor();
 	void Render();
 	void Shutdown();
+	void CreateFontTexture();
 
 private:
 	bgfx::IndexBufferHandle m_IndexBuffer;
@@ -83,4 +97,9 @@ private:
 	uint32_t m_Frame;
 	uint32_t m_ReadValueReadyFrame;
 	uint32_t m_ReadValue;
+
+	FT_Library m_FreeTypeLibrary;
+	FT_Face m_FontFace;
+	bgfx::TextureHandle m_FontTexture;
+	std::unordered_map<char, GlyphMetrics> m_GlyphMetrics;
 };

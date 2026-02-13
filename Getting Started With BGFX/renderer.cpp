@@ -5,6 +5,11 @@
 #include <imgui.h>
 #include <backends/imgui_impl_bgfx.h>
 
+#define _CRT_SECURE_NO_WARNINGS
+#define STBI_MSC_SECURE_CRT
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"
+
 Renderer::Renderer()
 {
 
@@ -114,6 +119,10 @@ void Renderer::Initialize(SDL_Window* window)
 	m_ReadValueDestination = bgfx::createTexture2D(1, 1, false, 0, bgfx::TextureFormat::RGBA8, BGFX_TEXTURE_BLIT_DST | BGFX_TEXTURE_READ_BACK);
 	m_Frame = 0;
 	m_ReadValueReadyFrame = 0xffffffff;
+
+	FT_Init_FreeType(&m_FreeTypeLibrary);
+	FT_New_Face(m_FreeTypeLibrary, "January Night.ttf", 0, &m_FontFace);
+	CreateFontTexture();
 }
 
 void Renderer::Begin()
@@ -271,4 +280,82 @@ void Renderer::Shutdown()
 	delete m_WhiteImage;
 	bgfx::destroy(m_Uniform);
 	bgfx::shutdown();
+}
+
+void Renderer::CreateFontTexture()
+{
+	const std::string textToRender = "`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>? ";
+	FT_Set_Char_Size(m_FontFace, 100 * 64, 0, 96, 0);
+
+	uint32_t maxWidth = 0, maxHeight = 0, rowWidth = 0;
+
+	for (uint32_t index = 0; index < textToRender.length(); index++)
+	{
+		if (index > 0 && index % 10 == 0)
+		{
+			maxWidth = std::max(maxWidth, rowWidth);
+			rowWidth = 0;
+		}
+
+		FT_UInt glyphIndex = FT_Get_Char_Index(m_FontFace, textToRender[index]);
+		FT_Load_Glyph(m_FontFace, glyphIndex, 0);
+		maxHeight = std::max(maxHeight, m_FontFace->glyph->bitmap.rows);
+		rowWidth += m_FontFace->glyph->bitmap.width;
+	}
+
+	uint32_t totalWidth = maxWidth;
+	uint32_t totalHeight = maxHeight * 10;
+
+	std::vector<uint32_t> imageData;
+	imageData.resize(totalWidth * totalHeight);
+	std::fill(imageData.begin(), imageData.end(), 0x00ffffff);
+
+	uint32_t xOffset = 0;
+	uint32_t yOffset = 0;
+
+	for (uint32_t index = 0; index < textToRender.length(); index++)
+	{
+		if (index > 0 && index % 10 == 0)
+		{
+			yOffset += maxHeight;
+			xOffset = 0;
+		}
+
+		FT_UInt glyphIndex = FT_Get_Char_Index(m_FontFace, textToRender[index]);
+		FT_Load_Glyph(m_FontFace, glyphIndex, 0);
+		FT_Render_Glyph(m_FontFace->glyph, FT_RENDER_MODE_NORMAL);
+
+		GlyphMetrics& glyphMetrics = m_GlyphMetrics[textToRender[index]];
+		glyphMetrics.Offset.x = m_FontFace->glyph->bitmap_left;
+		glyphMetrics.Offset.y = m_FontFace->glyph->bitmap_top;
+		glyphMetrics.Dimensions.x = m_FontFace->glyph->bitmap.width;
+		glyphMetrics.Dimensions.y = m_FontFace->glyph->bitmap.rows;
+		glyphMetrics.AdvanceWidth = m_FontFace->glyph->advance.x >> 6;
+		glyphMetrics.TextureCoordinates0.x = (float)xOffset / (float)totalWidth;
+		glyphMetrics.TextureCoordinates0.y = (float)yOffset / (float)totalHeight;
+		glyphMetrics.TextureCoordinates1.x = glyphMetrics.TextureCoordinates0.x + (float)glyphMetrics.Dimensions.x / (float)totalWidth;
+		glyphMetrics.TextureCoordinates1.y = glyphMetrics.TextureCoordinates0.y + (float)glyphMetrics.Dimensions.y / (float)totalHeight;
+
+		for (uint32_t y = 0; y < m_FontFace->glyph->bitmap.rows; y++)
+		{
+			for (uint32_t x = 0; x < m_FontFace->glyph->bitmap.width; x++)
+			{
+				imageData[(y + yOffset) * totalWidth + xOffset + x] |= ((uint32_t)m_FontFace->glyph->bitmap.buffer[y * m_FontFace->glyph->bitmap.width + x] << 24);
+			}
+		}
+
+		xOffset += m_FontFace->glyph->bitmap.width;
+	}
+
+	m_FontTexture = bgfx::createTexture2D(
+		(uint16_t)totalWidth,
+		(uint16_t)totalHeight,
+		false,
+		1,
+		bgfx::TextureFormat::RGBA8,
+		BGFX_SAMPLER_POINT | BGFX_SAMPLER_UVW_CLAMP,
+		bgfx::copy(imageData.data(), totalWidth * totalHeight * 4)
+	);
+
+	stbi_write_png("text.png", totalWidth, totalHeight, 4, imageData.data(), totalWidth * 4);
 }
