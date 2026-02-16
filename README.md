@@ -24,6 +24,7 @@ This repository contains the source code and examples featured in the video seri
 ➡️ Episode 12 – 3D ([https://www.youtube.com/watch?v=XK2DiUE0eqo](https://www.youtube.com/watch?v=XK2DiUE0eqo))  
 ➡️ Episode 13 – Read colors ([https://www.youtube.com/watch?v=cmVYUttABi0](https://www.youtube.com/watch?v=cmVYUttABi0))  
 ➡️ Episode 14 – Font atlas texture ([https://www.youtube.com/watch?v=0QSj6ajLIWw](https://www.youtube.com/watch?v=0QSj6ajLIWw))
+➡️ Episode 15 – Draw text ([https://www.youtube.com/watch?v=1DJMDBBuArU](https://www.youtube.com/watch?v=1DJMDBBuArU))
 
 ---
 
