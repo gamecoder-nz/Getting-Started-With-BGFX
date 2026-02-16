@@ -59,6 +59,7 @@ public:
 	void DrawPyramid(glm::vec3 position, float rotation);
 	void DrawQuad(glm::vec3 position, float rotation, uint32_t color, glm::vec3 scale, uint32_t depth);
 	void DrawImage(Image* image, glm::vec3 position, float rotation, uint32_t color, uint32_t depth);
+	void DrawText(glm::vec3 position, float rotation, uint32_t color, const char* text);
 	void WriteToStencil();
 	void EnableStencilTest();
 	void DisableStencil();

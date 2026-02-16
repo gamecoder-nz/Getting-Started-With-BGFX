@@ -61,7 +61,7 @@ int main()
 		renderer.EnableStencilTest();
 		renderer.DrawQuad({ 500.0f, 0.0f, 0.0f }, 0.0f, 0xff00ffff, { 1.3f, 1.3f, 1.0 }, 0);
 		renderer.DisableStencil();
-
+		renderer.DrawText({ 0.0f, 100.0f, 0.0f }, 0.0f, 0xff0000ff, "Hello World!");
 		ImGui::NewFrame();
 		ImGui::Begin("Window");
 

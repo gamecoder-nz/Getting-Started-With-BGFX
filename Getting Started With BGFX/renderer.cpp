@@ -202,6 +202,33 @@ void Renderer::DrawImage(Image* image, glm::vec3 position, float rotation, uint3
 	m_Vertices.push_back({ {-50.0f, -50.0f, 0.0f}, color, {1.0, 0.0f} });
 }
 
+void Renderer::DrawText(glm::vec3 position, float rotation, uint32_t color, const char* text)
+{
+	std::string textString = text;
+
+	RenderBatch batch;
+	batch.Depth = 0;
+	batch.StartIndex = m_Vertices.size() / 4 * 6;
+	batch.NumberOfIndices = textString.size() * 6;
+	batch.Texture = m_FontTexture;
+	batch.Transform = glm::translate(glm::mat4(1.0f), position) * glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(0.0, 0.0, 1.0f));
+	batch.Stencil = m_Stencil;
+
+	float x = 0.0f;
+	m_RenderBatches.push_back(batch);
+
+	for (char c : textString)
+	{
+		GlyphMetrics& glyphMetrics = m_GlyphMetrics[c];
+		m_Vertices.push_back({ {x + glyphMetrics.Offset.x                            , position.y, 0.0f},                             color,  glm::vec2(glyphMetrics.TextureCoordinates0.x, glyphMetrics.TextureCoordinates1.y) });
+		m_Vertices.push_back({ {x + glyphMetrics.Offset.x + glyphMetrics.Dimensions.x, position.y, 0.0f},                             color,  glm::vec2(glyphMetrics.TextureCoordinates1.x, glyphMetrics.TextureCoordinates1.y) });
+		m_Vertices.push_back({ {x + glyphMetrics.Offset.x + glyphMetrics.Dimensions.x, position.y + glyphMetrics.Dimensions.y, 0.0f}, color,  glm::vec2(glyphMetrics.TextureCoordinates1.x, glyphMetrics.TextureCoordinates0.y) });
+		m_Vertices.push_back({ {x + glyphMetrics.Offset.x                            , position.y + glyphMetrics.Dimensions.y, 0.0f}, color,  glm::vec2(glyphMetrics.TextureCoordinates0.x, glyphMetrics.TextureCoordinates0.y) });
+
+		x += glyphMetrics.AdvanceWidth;
+	}
+}
+
 void Renderer::WriteToStencil()
 {
 	m_Stencil = BGFX_STENCIL_OP_FAIL_S_KEEP | BGFX_STENCIL_OP_FAIL_Z_KEEP | BGFX_STENCIL_OP_PASS_Z_REPLACE | BGFX_STENCIL_TEST_ALWAYS | BGFX_STENCIL_FUNC_REF(1) | BGFX_STENCIL_FUNC_RMASK(0xff);
